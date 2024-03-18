@@ -15,7 +15,7 @@ The original sources of this data include:
 - Test-based AoA data available from [Brysbaert et al.](https://link.springer.com/article/10.3758/s13428-016-0811-4), which is under a non-commercial creative commons license (see paper for details)
 
 ## Code
-Code from the ```scripts''' directory can be used to re-create our results. As a standard order of operations, you will need to:
+Code from the ``scripts`` directory can be used to re-create our results. As a standard order of operations, you will need to:
 1. make the tests with ``gpt/make_tests.py`` or download the ready made test data at [anthonysicilia/wclarge](https://huggingface.co/datasets/anthonysicilia/wclarge).
 2. get results with ``gpt/get_results.py``
 3. interpret results with ``gpt/interpreter.py`` which parses the model answers
