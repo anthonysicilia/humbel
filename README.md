@@ -4,7 +4,7 @@ Factors of Language Models in Human-Machine Conversations" to be published at EA
 
 ## Announcements
 Additional data annotations and code are forthcoming! Things to expect after I am done traveling and can get back to my local server:
-1. updated code for ```scripts/gpt/get_results.py''' which contains interactions with huggingface models
+1. updated code for ``scripts/gpt/get_results.py`` which contains interactions with huggingface models
 2. A subset of (~150) annotated errors for Chat GPT (0613)
 
 ## Data
@@ -16,10 +16,10 @@ The original sources of this data include:
 
 ## Code
 Code from the ```scripts''' directory can be used to re-create our results. As a standard order of operations, you will need to:
-1. make the tests with ```gpt/make_tests.py''' or download the ready made test data at [anthonysicilia/wclarge](https://huggingface.co/datasets/anthonysicilia/wclarge).
-2. get results with ```gpt/get_results.py'''
-3. interpret results with ```gpt/interpreter.py''' which parses the model answers
-4. extract any features with ```gpt/features.py'''
+1. make the tests with ``gpt/make_tests.py`` or download the ready made test data at [anthonysicilia/wclarge](https://huggingface.co/datasets/anthonysicilia/wclarge).
+2. get results with ``gpt/get_results.py``
+3. interpret results with ``gpt/interpreter.py`` which parses the model answers
+4. extract any features with ``gpt/features.py``
 5. at this point, all dependencies should be create so you can use any of the other provided analysis scripts 
 
 
