@@ -12,7 +12,7 @@ Automated test data (WC large) is available on huggingface: [anthonysicilia/wcla
 
 The original sources of this data include:
 - Word association data available from the [WAX dataset](https://aclanthology.org/2022.aacl-main.9.pdf)
-- Test-based AoA data available from [Brysbaert et al.](https://link.springer.com/article/10.3758/s13428-016-0811-4)
+- Test-based AoA data available from [Brysbaert et al.](https://link.springer.com/article/10.3758/s13428-016-0811-4), which is under a non-commercial creative commons license (see paper for details)
 
 ## Code
 Code from the ```scripts''' directory can be used to re-create our results. As a standard order of operations, you will need to:
