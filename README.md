@@ -1,6 +1,6 @@
 # HumBEL: A Human-in-the-Loop Approach for Evaluating Demographic Factors of Language Models in Human-Machine Conversations
-This is the resource repository for the paper "HumBEL: A Human-in-the-Loop Approach for Evaluating Demographic
-Factors of Language Models in Human-Machine Conversations" to be published at EACL 2024.
+This is the resource repository for the paper ["HumBEL: A Human-in-the-Loop Approach for Evaluating Demographic
+Factors of Language Models in Human-Machine Conversations"](https://arxiv.org/abs/2305.14195) to published at EACL 2024.
 
 ## Announcements
 Additional data annotations and code are forthcoming! Things to expect after I am done traveling and can get back to my local server:
