@@ -9,63 +9,54 @@ from pathlib import Path
 
 class EasyCallModel:
 
-    def __init__(self, model, tok):
-        self.model = model
+    def __init__(self, model, tok, system=True):
+        self.device = torch.device('cuda')
+        self.system = system
+        try:
+            self.model = model.to(self.device)
+        except:
+            print('Skipping cast due to quantization')
+            self.model = model
         self.tok = tok
     
     def __call__(self, prompt, max_tokens=256, temp=0.7, p=1):
-        # TODO: add updated hf model code
-        raise NotImplementedError('TODO: bug fixes needed from a local repo (will resolve after traveling)')
         messages = [
             {"role": "system", "content" : 'You are a helpful assistant.'},
             {"role": "user", "content": prompt}
         ]
+        if not self.system:
+            messages = [messages[-1]]
         prompt = self.tok.apply_chat_template(messages, tokenize=False)
-        without_label = self.tok(prompt, add_special_tokens=False)
-        print(prompt)
-        print(without_label)
-        try:
-            sample = self.model.generate(
-                input_ids=torch.tensor(without_label['input_ids']).reshape(1, -1),
-                attention_mask=torch.tensor(without_label['attention_mask']).reshape(1, -1),
+        without_label = self.tok(prompt)
+        sample = self.model.generate(
+                input_ids=torch.tensor(without_label['input_ids']).reshape(1, -1).to(self.device),
+                attention_mask=torch.tensor(without_label['attention_mask']).reshape(1, -1).to(self.device),
                 max_new_tokens=max_tokens,
                 do_sample=True,
                 use_cache=True,
                 temperature=temp,
                 top_p=p
             )
-        except Exception as e:
-            print(e)
-            exit()
         sample = sample[0].tolist()
-        # TODO: define delimiter
-        # sample = [self.tok.decode(s, skip_special_tokens=True)\
-        #     .split(prompt_delimiter_string)[-1].strip() for s in sample]
-        decoded = self.tok.decode(sample, skip_special_tokens=True)
+        decoded = self.tok.decode(sample)
         return decoded
 
-def get_hf_model(model, load_in_4bit=False):
+def get_hf_model(model, load_in_4bit=True, system=True):
     token = None
     if load_in_4bit:
         tok = transformers.AutoTokenizer.from_pretrained(model, padding_side='left', token=token)
         model = transformers.AutoModelForCausalLM.from_pretrained(
             model,
-            torch_dtype=torch.float16,
-            quantization_config=transformers.BitsAndBytesConfig(
-                load_in_4bit=True,
-                llm_int8_threshold=6.0,
-                llm_int8_has_fp16_weight=False,
-                bnb_4bit_compute_dtype=torch.float16,
-                bnb_4bit_use_double_quant=False,
-                bnb_4bit_quant_type='nf4'),
-                token=token,
-                trust_remote_code=True)
+            torch_dtype=torch.float32,
+            load_in_4bit=True,
+            token=token,
+            trust_remote_code=True)
 
     else:
         tok = transformers.AutoTokenizer.from_pretrained(model, padding_side='left', token=token)
         model = transformers.AutoModelForCausalLM.from_pretrained(model, trust_remote_code=True, token=token)
     
-    return EasyCallModel(model, tok)
+    return EasyCallModel(model, tok, system=system)
     
 def call_hf_model(model, prompt, temp=0.7, p=1, max_tokens=256, delay=None):
     return model(prompt, max_tokens=max_tokens, temp=temp, p=p)

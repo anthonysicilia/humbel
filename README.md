@@ -3,9 +3,7 @@ This is the resource repository for the paper ["HumBEL: A Human-in-the-Loop Appr
 Factors of Language Models in Human-Machine Conversations"](https://arxiv.org/abs/2305.14195) to published at EACL 2024.
 
 ## Announcements
-Additional data annotations and code are forthcoming! Things to expect after I am done traveling and can get back to my local server:
-1. updated code for ``scripts/gpt/get_results.py`` which contains interactions with huggingface models
-2. A subset of (~150) annotated errors for Chat GPT (0613)
+Additional data annotations are forthcoming! We are working on cleaning up annotations for a subset of (~150) errors for Chat GPT (0613).
 
 ## Data
 Automated test data (WC large) is available on huggingface: [anthonysicilia/wclarge](https://huggingface.co/datasets/anthonysicilia/wclarge)
